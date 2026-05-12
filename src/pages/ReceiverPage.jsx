@@ -22,7 +22,7 @@ function ReceiverPage() {
         try {
 
             const response = await axios.get(
-                `https://gps-tracker-backend-euvg.onrender.com${deviceId}`
+                `https://gps-tracker-backend-euvg.onrender.com/location/${deviceId}`
             );
 
             setLocation(response.data);
@@ -37,6 +37,8 @@ function ReceiverPage() {
 
     // AUTO REFRESH
     useEffect(() => {
+
+        if (!deviceId) return;
 
         fetchLocation();
 
@@ -125,6 +127,7 @@ function ReceiverPage() {
                         <div className="h-[70vh] rounded-3xl overflow-hidden border border-gray-700">
 
                             <MapContainer
+                                key={`${location.latitude}-${location.longitude}`}
                                 center={[
                                     location.latitude,
                                     location.longitude

@@ -52,7 +52,7 @@ function SenderPage() {
                 try {
 
                     await axios.post(
-                        "https://gps-tracker-backend-euvg.onrender.com",
+                        "https://gps-tracker-backend-euvg.onrender.com/location",
                         {
                             deviceId: deviceId,
                             latitude: lat,
@@ -60,7 +60,7 @@ function SenderPage() {
                         }
                     );
 
-                    alert("Location Sent");
+                    alert("Location Sent Successfully");
 
                 } catch (error) {
 
@@ -69,6 +69,14 @@ function SenderPage() {
                     alert("Error Sending Location");
 
                 }
+
+            },
+
+            (error) => {
+
+                console.log(error);
+
+                alert("Location Permission Denied");
 
             }
 
