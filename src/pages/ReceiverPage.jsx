@@ -22,7 +22,7 @@ function ReceiverPage() {
         try {
 
             const response = await axios.get(
-                `http://localhost:8081/location/${deviceId}`
+                `https://gps-tracker-backend-euvg.onrender.com${deviceId}`
             );
 
             setLocation(response.data);

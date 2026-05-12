@@ -52,7 +52,7 @@ function SenderPage() {
                 try {
 
                     await axios.post(
-                        "http://localhost:8081/location",
+                        "https://gps-tracker-backend-euvg.onrender.com",
                         {
                             deviceId: deviceId,
                             latitude: lat,
