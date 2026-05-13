@@ -8,6 +8,8 @@ import {
     Popup
 } from "react-leaflet";
 
+import { motion } from "framer-motion";
+
 function ReceiverPage() {
 
     const [inputId, setInputId] = useState("");
@@ -54,77 +56,117 @@ function ReceiverPage() {
 
     return (
 
-        <div className="min-h-screen bg-[#0f172a] p-5">
+        <div className="min-h-screen bg-black text-white px-5 py-10 relative overflow-hidden">
 
-            <div className="max-w-7xl mx-auto">
+            {/* BLURS */}
+            <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-cyan-500/20 blur-[120px] rounded-full"></div>
 
-                <h1 className="text-5xl font-bold text-cyan-400 text-center mb-8">
-                    Receiver Dashboard
-                </h1>
+            <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-purple-500/20 blur-[120px] rounded-full"></div>
 
-                {/* INPUT SECTION */}
+            <div className="max-w-7xl mx-auto relative z-10">
 
-                <div className="bg-[#1e293b] p-5 rounded-3xl flex flex-col md:flex-row gap-5 mb-5">
+                {/* HEADING */}
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
+                    className="text-center mb-10"
+                >
+
+                    <p className="uppercase tracking-[5px] text-gray-400 text-sm mb-4">
+                        GPS Tracker
+                    </p>
+
+                    <h1 className="text-4xl sm:text-6xl font-bold">
+
+                        Receiver Dashboard
+
+                    </h1>
+
+                </motion.div>
+
+                {/* INPUT BOX */}
+                <div className="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[35px] p-5 flex flex-col md:flex-row gap-5 mb-6">
 
                     <input
                         type="text"
                         placeholder="Enter Device ID"
                         value={inputId}
                         onChange={(e) => setInputId(e.target.value)}
-                        className="flex-1 bg-[#0f172a] text-white px-5 py-4 rounded-2xl outline-none border border-gray-600"
+                        className="flex-1 bg-black/40 border border-white/10 rounded-2xl px-5 py-4 outline-none"
                     />
 
                     <button
                         onClick={() => setDeviceId(inputId)}
-                        className="bg-cyan-500 hover:bg-cyan-600 px-8 py-4 rounded-2xl text-white text-lg"
+                        className="bg-cyan-500 hover:bg-cyan-400 text-black font-semibold px-8 py-4 rounded-2xl duration-300"
                     >
+
                         Track Device
+
                     </button>
 
                 </div>
 
                 {/* LOCATION INFO */}
-
                 {
                     location && (
 
-                        <div className="bg-[#1e293b] p-5 rounded-3xl mb-5 border border-gray-700">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[35px] p-6 mb-6"
+                        >
 
-                            <div className="text-xl text-gray-300 mb-3">
-                                Device ID:
+                            <div className="grid md:grid-cols-3 gap-6">
+
+                                <div>
+
+                                    <p className="text-gray-400 uppercase tracking-[3px] text-sm mb-2">
+                                        Device ID
+                                    </p>
+
+                                    <h1 className="text-cyan-400 text-2xl font-bold">
+                                        {deviceId}
+                                    </h1>
+
+                                </div>
+
+                                <div>
+
+                                    <p className="text-gray-400 uppercase tracking-[3px] text-sm mb-2">
+                                        Latitude
+                                    </p>
+
+                                    <h1 className="text-cyan-400 break-all">
+                                        {location.latitude}
+                                    </h1>
+
+                                </div>
+
+                                <div>
+
+                                    <p className="text-gray-400 uppercase tracking-[3px] text-sm mb-2">
+                                        Longitude
+                                    </p>
+
+                                    <h1 className="text-cyan-400 break-all">
+                                        {location.longitude}
+                                    </h1>
+
+                                </div>
+
                             </div>
 
-                            <div className="text-cyan-400 text-2xl font-bold mb-5">
-                                {deviceId}
-                            </div>
-
-                            <div className="text-xl text-gray-300 mb-3">
-                                Latitude:
-                            </div>
-
-                            <div className="text-cyan-400 mb-5">
-                                {location.latitude}
-                            </div>
-
-                            <div className="text-xl text-gray-300 mb-3">
-                                Longitude:
-                            </div>
-
-                            <div className="text-cyan-400">
-                                {location.longitude}
-                            </div>
-
-                        </div>
+                        </motion.div>
 
                     )
                 }
 
                 {/* MAP */}
-
                 {
                     location && (
 
-                        <div className="h-[70vh] rounded-3xl overflow-hidden border border-gray-700">
+                        <div className="h-[70vh] rounded-[35px] overflow-hidden border border-white/10 shadow-2xl">
 
                             <MapContainer
                                 key={`${location.latitude}-${location.longitude}`}

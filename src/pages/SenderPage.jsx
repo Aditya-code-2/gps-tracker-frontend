@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 function SenderPage() {
 
@@ -86,74 +87,119 @@ function SenderPage() {
 
     return (
 
-        <div className="min-h-screen bg-[#0f172a] flex items-center justify-center p-5">
+        <div className="min-h-screen bg-black text-white flex items-center justify-center px-5 py-10 overflow-hidden relative">
 
-            <div className="w-full max-w-lg bg-[#1e293b] rounded-3xl p-8 shadow-2xl">
+            {/* BLUR EFFECTS */}
+            <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-cyan-500/20 blur-[120px] rounded-full"></div>
 
-                <h1 className="text-4xl font-bold text-cyan-400 text-center mb-8">
-                    Sender Device
-                </h1>
+            <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-purple-500/20 blur-[120px] rounded-full"></div>
 
+            <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="w-full max-w-xl bg-white/5 border border-white/10 backdrop-blur-2xl rounded-[40px] p-8 shadow-2xl relative z-10"
+            >
+
+                {/* TITLE */}
+                <div className="text-center mb-10">
+
+                    <p className="uppercase tracking-[5px] text-gray-400 text-sm mb-4">
+                        GPS Tracker
+                    </p>
+
+                    <h1 className="text-4xl sm:text-5xl font-bold leading-tight">
+
+                        Sender Device
+
+                    </h1>
+
+                </div>
+
+                {/* GENERATE BUTTON */}
                 <button
                     onClick={generateId}
-                    className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-4 rounded-2xl text-xl mb-5"
+                    className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-semibold py-4 rounded-2xl text-lg duration-300 hover:scale-[1.02]"
                 >
+
                     Generate Device ID
+
                 </button>
 
+                {/* DEVICE ID CARD */}
                 {
                     deviceId && (
 
-                        <div className="bg-[#0f172a] border border-cyan-500 rounded-2xl p-5 mb-5">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="bg-black/40 border border-cyan-400/30 rounded-[30px] p-6 mt-6"
+                        >
 
-                            <div className="text-gray-400 mb-2">
+                            <div className="text-gray-400 mb-3 text-sm uppercase tracking-[3px]">
                                 Device ID
                             </div>
 
-                            <div className="text-3xl text-cyan-400 font-bold mb-4">
+                            <div className="text-4xl font-bold text-cyan-400 tracking-[4px] break-all">
+
                                 {deviceId}
+
                             </div>
 
                             <button
                                 onClick={copyId}
-                                className="bg-green-500 hover:bg-green-600 px-5 py-3 rounded-xl"
+                                className="mt-6 px-6 py-3 rounded-2xl bg-white/10 hover:bg-white/20 duration-300"
                             >
+
                                 Copy ID
+
                             </button>
 
-                        </div>
+                        </motion.div>
 
                     )
                 }
 
+                {/* SEND BUTTON */}
                 <button
                     onClick={sendLocation}
-                    className="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-2xl text-xl"
+                    className="w-full mt-6 bg-green-500 hover:bg-green-400 text-black font-semibold py-4 rounded-2xl text-lg duration-300 hover:scale-[1.02]"
                 >
+
                     Send Live Location
+
                 </button>
 
-                <div className="bg-[#0f172a] rounded-2xl p-5 mt-5">
+                {/* LOCATION BOX */}
+                <div className="bg-black/40 border border-white/10 rounded-[30px] p-6 mt-6">
 
-                    <div className="text-gray-400">
-                        Latitude
+                    <div className="mb-5">
+
+                        <p className="text-gray-400 text-sm uppercase tracking-[3px] mb-2">
+                            Latitude
+                        </p>
+
+                        <p className="text-cyan-400 break-all">
+                            {latitude || "Waiting for location..."}
+                        </p>
+
                     </div>
 
-                    <div className="text-cyan-400 break-all mb-5">
-                        {latitude}
-                    </div>
+                    <div>
 
-                    <div className="text-gray-400">
-                        Longitude
-                    </div>
+                        <p className="text-gray-400 text-sm uppercase tracking-[3px] mb-2">
+                            Longitude
+                        </p>
 
-                    <div className="text-cyan-400 break-all">
-                        {longitude}
+                        <p className="text-cyan-400 break-all">
+                            {longitude || "Waiting for location..."}
+                        </p>
+
                     </div>
 
                 </div>
 
-            </div>
+            </motion.div>
 
         </div>
 
