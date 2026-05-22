@@ -193,6 +193,7 @@ function ReceiverPage() {
                                 >
 
                                     <Popup>
+                                        <img src="https://www.magnific.com/free-photos-vectors/location-png" alt="" />
                                         Live Device Location
                                     </Popup>
 
